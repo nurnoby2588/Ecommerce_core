@@ -11,10 +11,19 @@
       $.get("http://localhost:55617/ProductApi/ListProduct", function(data, status){
          $.each(data,function (index,value) {
 
+             productContent = productContent+ `
+                <div>
+                  <p> Name : ${value.name} </p>
+                 <img src="${value.picture}"/>
+                  <p> Price : ${value.price} </p>
+                  <p> Quantity : ${value.quantity} </p>
+               </div>
+             `;
              console.log(value)
          })
-        alert("Data: " + data + "\nStatus: " + status);
+        $('#dvProductList').html(productContent)
       });
+     
     });
 </script>
 
