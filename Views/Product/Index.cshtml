@@ -1,0 +1,24 @@
+﻿@* @{
+    ViewData["Title"] = "Product Page";
+} *@
+<script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous">
+</script>
+<script>
+        $(document).ready(function(){
+         var productContent = '';  
+      $.get("http://localhost:55617/ProductApi/ListProduct", function(data, status){
+         $.each(data,function (index,value) {
+
+             console.log(value)
+         })
+        alert("Data: " + data + "\nStatus: " + status);
+      });
+    });
+</script>
+
+
+<div id="dvProductList">
+   
+</div>

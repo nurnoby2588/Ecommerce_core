@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce_core.Controllers
 {
-    public class ProductController1 : Controller
+    public class ProductApiController : Controller
     {
         public IActionResult ListProduct()
         {
