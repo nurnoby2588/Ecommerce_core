@@ -12,12 +12,18 @@
          $.each(data,function (index,value) {
 
              productContent = productContent+ `
-                <div>
-                  <p> Name : ${value.name} </p>
-                 <img src="${value.picture}"/>
-                  <p> Price : ${value.price} </p>
-                  <p> Quantity : ${value.quantity} </p>
-               </div>
+                
+             <div class="col">
+             <div class="card h-80">
+            <img src="${value.picture}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Name : ${value.name}</h5>
+                <h5 class="card-title">Price : ${value.price}</h5>
+                <h5 class="card-title">Quantity : ${value.quantity}</h5>
+                <button type="button" class="btn btn-primary">ADD TO CART</button>
+            </div>
+        </div>
+    </div>
              `;
              console.log(value)
          })
@@ -27,7 +33,12 @@
     });
 </script>
 
-
-<div id="dvProductList">
-   
+<div>
+    <h2 class="text-center mb-4">Products</h2>
+  
+    <div id="dvProductList" class="row row-cols-1 row-cols-md-3 g-4">
+        
+    </div>
 </div>
+
+
