@@ -1,12 +1,17 @@
 ﻿var AccountController = {
-    verifyUser: (actionBtn,url) => {
+    verifyUser: (actionBtn, url) => {
+    
         let userName = $('#txtUserName').val();
-        let Password = $('#txtPassword').val();
-      
+        let password = $('#txtPassword').val();
+        let userData = {
+            UserName: userName,
+            Password: password
+        }
 
-        AccountServies.verifyUser(userName, Password, function (reponce) {
+        AccountServies.verifyUser(userData, function (reponce) {
             if (reponce == "success") {
                 localStorage.setItem("UserName", userName);
+         
                 window.location.href = url
                
             }

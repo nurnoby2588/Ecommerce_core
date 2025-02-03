@@ -1,12 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Ecommerce_core.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce_core.Controllers
 {
     public class AccountApiController : Controller
     {
-        public IActionResult verifyUser(string userName, string password)
+        [HttpPost]
+        public IActionResult verifyUser(Account modelAccount)
         {
-            if (userName == "nurnoby" && password == "123456")
+            if (modelAccount.UserName == "nurnoby" && modelAccount.Password == "123456")
             {
                 return Ok("success");
             }
