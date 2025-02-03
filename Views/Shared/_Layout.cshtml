@@ -7,6 +7,19 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Ecommerce_core.styles.css" asp-append-version="true" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            if( localStorage.getItem("UserName") != undefined &&  localStorage.getItem("UserName") != null)
+            {
+              var userName = localStorage.getItem("UserName");
+              $('#userName').html(userName);
+            }
+            
+        })
+    </script>
+
 </head>
 <body>
     <header>
@@ -26,6 +39,9 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
+                </div>
+                <div style="float:right; width:200px">
+                    <span id="userName">dflsf</span>
                 </div>
             </div>
         </nav>

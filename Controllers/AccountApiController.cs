@@ -12,7 +12,7 @@ namespace Ecommerce_core.Controllers
             }
             else
             {
-                return Unauthorized(new {message = "Unauthorize access"});
+                return Unauthorized( "Unauthorize access");
             }
            
         }
