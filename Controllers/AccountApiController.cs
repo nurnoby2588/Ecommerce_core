@@ -5,7 +5,7 @@ namespace Ecommerce_core.Controllers
 {
     public class AccountApiController : Controller
     {
-        [HttpPost]
+        [HttpPost] 
         public IActionResult verifyUser(Account modelAccount)
         {
             if (modelAccount.UserName == "nurnoby" && modelAccount.Password == "123456")
