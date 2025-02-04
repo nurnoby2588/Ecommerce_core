@@ -3,9 +3,29 @@
 *@
 @{
 }
+<style>
+    #dvLeftBar ul {
+        padding: 5px 5px;
+    }
+
+        #dvLeftBar ul li {
+            padding: 5px 5px;
+            border-radius: 5px;
+            list-style: none;
+            margin: 8px 0px;
+        }
+
+            #dvLeftBar ul li:hover {
+                background-color: darkgray;
+            }
+</style>
 <script>
     if(localStorage.getItem("UserName") == undefined || localStorage.getItem("UserName") == null || localStorage.getItem("UserName") == ""){
        window.location.href='@Url.Action("login","Account")';
     }
 </script>
-in dashboard
+<div id="dvLeftBar" style=" width: 200px; position: fixed; left: 0px; top: 56px; bottom: 60px; background-color: darkslategrey;z-index:0">
+    <div style="padding:5px; ">
+        @Html.Partial("~/views/common/_commonpartial.cshtml")
+    </div>
+</div>
