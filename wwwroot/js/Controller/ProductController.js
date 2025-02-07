@@ -1,4 +1,5 @@
-﻿var ProductController = {
+﻿var lstCartProducts = [];
+var ProductController = {
     lstProduct: () => {
         ProductService.ListProduct(function (responce) {
 
@@ -27,12 +28,12 @@
         })
     },
     addToCart: (cntrl) => {
-        var lstCartProducts = [];
-        if (localStorage.getItem("cartProducts") != undefined && localStorage.getItem("cartProducts") != null )
-        {
-            lstCartProducts = localStorage.getItem("cartProducts");
-        }
-        console.log("before set local stroge", lstCartProducts);
+       
+        //if (localStorage.getItem("cartProducts") != undefined && localStorage.getItem("cartProducts") != null )
+        //{
+        //    lstCartProducts = localStorage.getItem("cartProducts");
+        //}
+        //console.log("before set local stroge", lstCartProducts);
 
         var targetIndex = $(cntrl).attr("id").split("_")[1];
         var image = $('#pdPic_' + targetIndex).attr('src');
@@ -40,7 +41,8 @@
         var price = $('#pdPrice_' + targetIndex).html();
         var qty = $('#pdQty_' + targetIndex).html();
 
-        $('#productCart').html(parseInt($('#productCart').html()) + 1);
+        //$('#productCart').html(parseInt($('#productCart').html()) + 1);
+        
 
         var targetProduct = {
             image,
@@ -49,14 +51,15 @@
             qty
 
         }
-        var lstCartProductNew = [];
-        lstCartProductNew.push(targetProduct);
-        localStorage.setItem("cartProducts", JSON.stringify(lstCartProductNew));
+     
+        lstCartProducts.push(targetProduct);
+        //localStorage.setItem("cartProducts", JSON.stringify(lstCartProductNew));
 
-        console.log("After set local stroge", lstCartProductNew);
+        console.log("After set local stroge", lstCartProducts);
         alert("Product Added to cart")
+        $('#productCart').html(lstCartProducts.length);
 
-        console.log(lstCartProductNew);
+        console.log(lstCartProducts.length);
         //var index = $('#btnAddToCard_')
 
     }
