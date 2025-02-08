@@ -8,5 +8,9 @@ namespace Ecommerce_core.Controllers
         {
             return View();
         }
+        public IActionResult Checkout()
+        {
+            return View();
+        }
     }
 }

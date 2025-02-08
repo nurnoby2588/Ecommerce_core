@@ -55,25 +55,36 @@ var ProductController = {
      
         lstCartProducts.push(targetProduct);
         //localStorage.setItem("cartProducts", JSON.stringify(lstCartProductNew));
-       alert("Product Added to cart")
-       ProductController.arrangeAddCard();
+        alert("Product Added to cart")
+        if (lstCartProducts.length > 0) {
+           
+        }
+        ProductController.checkOutBtn()
+        ProductController.arrangeAddCard();
+        
     },
     deleteCartProduct: (targetIndex) => {
+       
+        
         var lstCartProductsNew = []
         $.each(lstCartProducts, function (index, value) {
             if (targetIndex != index) {
                 lstCartProductsNew.push(value);
             }
         })
-        lstCartProducts = lstCartProductsNew;
-        ProductController.arrangeAddCard();
+        console.log(lstCartProductsNew.length)
+        if (lstCartProductsNew.length == 0) {
 
-      
+            $("#dvCheckout").html('')
+        }
+        lstCartProducts = lstCartProductsNew;
        
+        ProductController.arrangeAddCard();
+ 
     }
     ,
     viewCart: () => {
-
+       
         ProductController.emptyCartValidation()
 
         if ($("#dvViewCart").css('right') == "0" || $("#dvViewCart").css('right') == "0px") {
@@ -99,6 +110,7 @@ var ProductController = {
         $('#productCart').html(lstCartProducts.length);
         console.log(lstCartProducts)
         if (lstCartProducts.length > 0) {
+
             $("#dbViewCartContent").html('')
             $.each(lstCartProducts, function (index, value) {
                 $("#dbViewCartContent").append(`
@@ -141,5 +153,16 @@ var ProductController = {
             </p>
             `)
         }
+    },
+    checkOutBtn: () => {
+   
+        $("#dvCheckout").append(`  <button style="width:100% ;height:40px; position:absolute; bottom:0px" class="btn btn-success" onclick="ProductController.prepareCartForCheckoutUI('/Product/Checkout')">Checkout</button>`)
+        
+      
+    },
+    prepareCartForCheckoutUI: (url) => {
+        localStorage.setItem("LstCartProducts", JSON.stringify(lstCartProducts))
+        window.location.href = url;
     }
+
 }
