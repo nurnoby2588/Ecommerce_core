@@ -1,4 +1,5 @@
 ﻿var lstCartProducts = [];
+
 var ProductController = {
     lstProduct: () => {
         ProductService.ListProduct(function (responce) {
@@ -13,9 +14,9 @@ var ProductController = {
              <div class="card h-80">
              <img id="pdPic_${index}" src="${value.picture}" class="card-img-top" alt="...">
              <div class="card-body">
-                <h5 id="pdName_${index}" class="card-title">Name : ${value.name}</h5>
+                <h5  class="card-title">Name : <span id="pdName_${index}">${value.name}</span></h5>
                 <h5  class=" card-title">Price : <s>${value.price}</s> <span id="pdPrice_${index}">${value.price}</span> </h5>
-                <h5 id="pdQty_${index}" class="card-title">Quantity : ${value.quantity}</h5>
+                <h5  class="card-title">Quantity : <span id="pdQty_${index}">${value.quantity}</span></h5>
                 <button type="button" id="btnAddToCard_${index}" class="btn btn-primary" onclick="ProductController.addToCart(this)">ADD TO CART</button>
                     </div>
                      </div>
@@ -54,13 +55,91 @@ var ProductController = {
      
         lstCartProducts.push(targetProduct);
         //localStorage.setItem("cartProducts", JSON.stringify(lstCartProductNew));
+       alert("Product Added to cart")
+       ProductController.arrangeAddCard();
+    },
+    deleteCartProduct: (targetIndex) => {
+        var lstCartProductsNew = []
+        $.each(lstCartProducts, function (index, value) {
+            if (targetIndex != index) {
+                lstCartProductsNew.push(value);
+            }
+        })
+        lstCartProducts = lstCartProductsNew;
+        ProductController.arrangeAddCard();
 
-        console.log("After set local stroge", lstCartProducts);
-        alert("Product Added to cart")
+      
+       
+    }
+    ,
+    viewCart: () => {
+
+        ProductController.emptyCartValidation()
+
+        if ($("#dvViewCart").css('right') == "0" || $("#dvViewCart").css('right') == "0px") {
+            $("#dvViewCart").animate({
+                right: "-300",
+           
+            }, "fast")
+        }
+        else {
+            $("#dvViewCart").animate({
+                right: "0",
+               
+            }, "slow")
+        }
+     
+       
+
+    },
+    arrangeAddCard: () => {
+
+        $("#dbViewCartContent").html('')
+        ProductController.emptyCartValidation();
         $('#productCart').html(lstCartProducts.length);
+        console.log(lstCartProducts)
+        if (lstCartProducts.length > 0) {
+            $("#dbViewCartContent").html('')
+            $.each(lstCartProducts, function (index, value) {
+                $("#dbViewCartContent").append(`
+                <div id="dvCartWrapper_${index}" style="border:1px solid #f5da95" class="mt-1">
 
-        console.log(lstCartProducts.length);
-        //var index = $('#btnAddToCard_')
+                <div class="row p-2"  >
+                   <div class="col col-sm-3">
+                   <img style="width:50px" src="${value.image}" />
+                 </div>
 
+                  <div class="col col-sm-4">
+                    <span>${value.name}</span>
+                    </div>
+                   <div class="col col-sm-3">
+                      <span>${value.price}</span>
+                    </div>
+                    <div class="col col-sm-2">
+                      <span style="cursor:pointer" onclick="ProductController.deleteCartProduct(${index})">X</span>
+                    </div>
+
+                   </div>
+
+                </div>
+
+                 
+
+                `)
+
+            });
+
+        }
+
+    },
+
+    emptyCartValidation: () => {
+        if (lstCartProducts.length == 0 || lstCartProducts == "") {
+            $("#dbViewCartContent").append(`
+              <p style="position: absolute;left:30%;  bottom: 50%; margin: auto">
+                No item added
+            </p>
+            `)
+        }
     }
 }
