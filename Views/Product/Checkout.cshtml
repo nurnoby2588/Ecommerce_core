@@ -1,1 +1,14 @@
 ﻿
+<script src="~/js/controller/productcontroller.js"></script>
+<script src="~/js/servies/productservice.js"></script>
+<script>
+    var LstCartProducts=[];
+    $(document).ready(function(){
+    if( localStorage.getItem("LstCartProducts") !=null && localStorage.getItem("LstCartProducts") !=undefined  ){
+             LstCartProducts = JSON.parse(localStorage.getItem("LstCartProducts"));
+            console.log("checkout",LstCartProducts.length);
+            $('#productCart').html(LstCartProducts.length);
+        }
+    } ) 
+    
+</script>
