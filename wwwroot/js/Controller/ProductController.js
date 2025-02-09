@@ -42,7 +42,7 @@ var ProductController = {
         var price = $('#pdPrice_' + targetIndex).html();
         var qty = $('#pdQty_' + targetIndex).html();
 
-        //$('#productCart').html(parseInt($('#productCart').html()) + 1);
+        
         
 
         var targetProduct = {
@@ -107,7 +107,7 @@ var ProductController = {
 
         $("#dbViewCartContent").html('')
         ProductController.emptyCartValidation();
-        $('#productCart').html(lstCartProducts.length);
+        $('#productCartCount').html(lstCartProducts.length);
         console.log(lstCartProducts)
         if (lstCartProducts.length > 0) {
 

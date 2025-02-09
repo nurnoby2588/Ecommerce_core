@@ -7,7 +7,7 @@
     if( localStorage.getItem("LstCartProducts") !=null && localStorage.getItem("LstCartProducts") !=undefined  ){
              LstCartProducts = JSON.parse(localStorage.getItem("LstCartProducts"));
             console.log("checkout",LstCartProducts.length);
-            $('#productCart').html(LstCartProducts.length);
+            $('#productCartCount').html(LstCartProducts.length);
         }
     } ) 
     
