@@ -143,6 +143,32 @@ var ProductController = {
 
         }
 
+        // Checkout details update
+        $.each(lstCartProducts, function (index, value) {
+            $("#checkoutBox").append(`
+                <div id="dvCartWrapper_${index}" style="border:1px solid #f5da95" class="mt-1">
+
+                <div class="row p-2"  >
+                   <div class="col col-sm-3">
+                   <img style="width:50px" src="${value.image}" />
+                 </div>
+
+                  <div class="col col-sm-4">
+                    <span>${value.name}</span>
+                    </div>
+                   <div class="col col-sm-3">
+                      <span>${value.price}</span>
+                    </div>
+                    <div class="col col-sm-2">
+                      <span style="cursor:pointer" onclick="ProductController.deleteCartProduct(${index})">X</span>
+                    </div>
+
+                   </div>
+
+                </div> `)
+        })
+        
+
     },
 
     emptyCartValidation: () => {
@@ -163,6 +189,16 @@ var ProductController = {
     prepareCartForCheckoutUI: (url) => {
         localStorage.setItem("LstCartProducts", JSON.stringify(lstCartProducts))
         window.location.href = url;
+    },
+    LoadCartProductForCheckout: () => {
+        //ProductController.arrangeAddCard();
+        if (localStorage.getItem("LstCartProducts") != null && localStorage.getItem("LstCartProducts") != undefined) {
+            lstCartProducts = JSON.parse(localStorage.getItem("LstCartProducts"));
+
+            ProductController.arrangeAddCard();
+
+
+        }
     }
 
 }
