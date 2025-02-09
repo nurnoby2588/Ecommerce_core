@@ -2,13 +2,44 @@
 <script src="~/js/controller/productcontroller.js"></script>
 <script src="~/js/servies/productservice.js"></script>
 <script>
-    var LstCartProducts=[];
+    var lstCartProducts=[];
     $(document).ready(function(){
     if( localStorage.getItem("LstCartProducts") !=null && localStorage.getItem("LstCartProducts") !=undefined  ){
-             LstCartProducts = JSON.parse(localStorage.getItem("LstCartProducts"));
-            console.log("checkout",LstCartProducts.length);
-            $('#productCartCount').html(LstCartProducts.length);
+             lstCartProducts = JSON.parse(localStorage.getItem("LstCartProducts"));
+            console.log("checkout",lstCartProducts.length);
+            $('#productCartCount').html(lstCartProducts.length);
+
+            $.each(lstCartProducts,function(index, value){
+                $("#checkoutBox").append(`
+                <div id="dvCartWrapper_${index}" style="border:1px solid #f5da95" class="mt-1">
+
+                <div class="row p-2"  >
+                   <div class="col col-sm-3">
+                   <img style="width:50px" src="${value.image}" />
+                 </div>
+
+                  <div class="col col-sm-4">
+                    <span>${value.name}</span>
+                    </div>
+                   <div class="col col-sm-3">
+                      <span>${value.price}</span>
+                    </div>
+                    <div class="col col-sm-2">
+                      <span style="cursor:pointer" onclick="ProductController.deleteCartProduct(${index})">X</span>
+                    </div>
+
+                   </div>
+
+                </div>
+
+
+
+                `)
+            } )
         }
     } ) 
     
 </script>
+<div id="checkoutBox">
+
+</div>
