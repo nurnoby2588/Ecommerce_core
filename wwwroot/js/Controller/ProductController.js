@@ -110,8 +110,10 @@ var ProductController = {
         $('#productCartCount').html(lstCartProducts.length);
         console.log(lstCartProducts)
         if (lstCartProducts.length > 0) {
-
+            // clear data
             $("#dbViewCartContent").html('')
+            $("#checkoutBox").html('')
+
             $.each(lstCartProducts, function (index, value) {
                 $("#dbViewCartContent").append(`
                 <div id="dvCartWrapper_${index}" style="border:1px solid #f5da95" class="mt-1">
@@ -144,9 +146,11 @@ var ProductController = {
         }
 
         // Checkout details update
-        $.each(lstCartProducts, function (index, value) {
-            $("#checkoutBox").append(`
-                <div id="dvCartWrapper_${index}" style="border:1px solid #f5da95" class="mt-1">
+        // check checkout page a #checkoutBox ei id ase naki
+        if ($('body').find('#checkoutBox').length > 0) {
+            $.each(lstCartProducts, function (index, value) {
+                $("#checkoutBox").append(`
+                <div id="dvCheckOutCartWrapper_${index}" style="border:1px solid #f5da95" class="mt-1">
 
                 <div class="row p-2"  >
                    <div class="col col-sm-3">
@@ -166,7 +170,9 @@ var ProductController = {
                    </div>
 
                 </div> `)
-        })
+            })
+        }
+        
         
 
     },
