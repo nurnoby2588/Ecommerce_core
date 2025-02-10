@@ -6,6 +6,8 @@ namespace Ecommerce_core.Models
     public class Product
     {
         [DataMember]
+        public int id { get; set; }
+        [DataMember]
         public string Name { get; set; }
         [DataMember]
         public string Picture { get; set; }

@@ -12,19 +12,20 @@ var ProductController = {
                 
              <div class="col">
              <div class="card h-80">
-             <img id="pdPic_${index}" src="${value.picture}" class="card-img-top" alt="...">
+             <img id="pdPic_${value.id}" src="${value.picture}" class="card-img-top" alt="...">
              <div class="card-body">
-                <h5  class="card-title">Name : <span id="pdName_${index}">${value.name}</span></h5>
-                <h5  class=" card-title">Price : <s>${value.price}</s> <span id="pdPrice_${index}">${value.price}</span> </h5>
-                <h5  class="card-title">Quantity : <span id="pdQty_${index}">${value.quantity}</span></h5>
-                <button type="button" id="btnAddToCard_${index}" class="btn btn-primary" onclick="ProductController.addToCart(this)">ADD TO CART</button>
+                <h5  class="card-title">Name : <span id="pdName_${value.id}">${value.name}</span></h5>
+                <h5  class=" card-title">Price : <s>${value.price}</s> <span id="pdPrice_${value.id}">${value.price}</span> </h5>
+                <h5  class="card-title">Quantity : <span id="pdQty_${value.id}">${value.quantity}</span></h5>
+                <button type="button" id="btnAddToCard_${value.id}" class="btn btn-primary" onclick="ProductController.addToCart(this)">ADD TO CART</button>
                     </div>
                      </div>
                         </div>
              `;
-                       
+                console.log(value)      
                     })
-                    $('#dvProductList').html(productContent)
+            $('#dvProductList').html(productContent)
+          
                
         })
     },
@@ -36,16 +37,17 @@ var ProductController = {
         //}
         //console.log("before set local stroge", lstCartProducts);
 
-        var targetIndex = $(cntrl).attr("id").split("_")[1];
-        var image = $('#pdPic_' + targetIndex).attr('src');
-        var name = $('#pdName_' + targetIndex).html();
-        var price = $('#pdPrice_' + targetIndex).html();
-        var qty = $('#pdQty_' + targetIndex).html();
+        var targetID = $(cntrl).attr("id").split("_")[1];
+        var image = $('#pdPic_' + targetID).attr('src');
+        var name = $('#pdName_' + targetID).html();
+        var price = $('#pdPrice_' + targetID).html();
+        var qty = $('#pdQty_' + targetID).html();
 
         
         
 
         var targetProduct = {
+            id: targetID,
             image,
             name,
             price,
@@ -63,20 +65,19 @@ var ProductController = {
         ProductController.arrangeAddCard();
         
     },
-       deleteCartProduct: (targetIndex) => {
-           var lstCartProductsNew = []
-
+    deleteCartProduct: (targetIndex) => {
+        var lstCartProductsNew = []
+        console.log("click", targetIndex)
+        
         $.each(lstCartProducts, function (index, value) {
-            if (targetIndex != index) {
+            if (targetIndex != value.id) {
                 lstCartProductsNew.push(value);
             }
         })
 
-        console.log(lstCartProductsNew.length)
-       
            lstCartProducts = lstCartProductsNew;
-           ProductController.UploadCartProduct()
-           //localStorage.setItem("LstCartProducts", JSON.stringify(lstCartProducts))
+           //ProductController.UploadCartProduct()
+           localStorage.setItem("LstCartProducts", JSON.stringify(lstCartProducts))
            ProductController.arrangeAddCard();
 
            if (lstCartProductsNew.length == 0) {
@@ -118,7 +119,7 @@ var ProductController = {
 
             $.each(lstCartProducts, function (index, value) {
                 $("#dbViewCartContent").append(`
-                <div id="dvCartWrapper_${index}" style="border:1px solid #f5da95" class="mt-1">
+                <div id="dvCartWrapper_${value.id}" style="border:1px solid #f5da95" class="mt-1">
 
                 <div class="row p-2"  >
                    <div class="col col-sm-3">
@@ -132,7 +133,7 @@ var ProductController = {
                       <span>${value.price}</span>
                     </div>
                     <div class="col col-sm-2">
-                      <span style="cursor:pointer" onclick="ProductController.deleteCartProduct(${index})">X</span>
+                      <span style="cursor:pointer" onclick="ProductController.deleteCartProduct(${value.id})">X</span>
                     </div>
 
                    </div>
@@ -153,12 +154,13 @@ var ProductController = {
             if (lstCartProducts.length == 0) {
                 alert("Empty cart")
                 window.location.href = ('/Product');
-                $("#dvCheckout").html('')
+                //$("#dvCheckout").html('')
+                $("#checkoutBox").html('')
             }
           
             $.each(lstCartProducts, function (index, value) {
                 $("#checkoutBox").append(`
-                <div id="dvCheckOutCartWrapper_${index}" style="border:1px solid #f5da95" class="mt-1">
+                <div id="dvCheckOutCartWrapper_${value.id}" style="border:1px solid #f5da95" class="mt-1">
 
                 <div class="row p-2"  >
                    <div class="col col-sm-3">
@@ -172,7 +174,7 @@ var ProductController = {
                       <span>${value.price}</span>
                     </div>
                     <div class="col col-sm-2">
-                      <span style="cursor:pointer" onclick="ProductController.deleteCartProduct(${index})">X</span>
+                      <span style="cursor:pointer" onclick="ProductController.deleteCartProduct(${value.id})">X</span>
                     </div>
 
                    </div>
@@ -211,6 +213,8 @@ var ProductController = {
             lstCartProducts = JSON.parse(localStorage.getItem("LstCartProducts"));
 
             ProductController.arrangeAddCard();
+            ProductController.checkOutBtn();
+            
 
 
         }
