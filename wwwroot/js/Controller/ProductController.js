@@ -111,7 +111,7 @@ var ProductController = {
         $("#dbViewCartContent").html('')
         ProductController.emptyCartValidation();
         $('#productCartCount').html(lstCartProducts.length);
-        console.log(lstCartProducts)
+      
         if (lstCartProducts.length > 0) {
             // clear data
             $("#dbViewCartContent").html('')
@@ -276,6 +276,31 @@ var ProductController = {
             `)
             
             console.log(responce)
+        })
+    }
+    ,
+    LoadCategory:()=> {
+        ProductService.loadCategory(function (responce) {
+
+            $.each(responce, function (index, data) {
+                $("#ulLeftBar").append(`
+                <li onclick="ProductController.CategoryBtn('${data.name}')" id="categoryList" class="nav-link">${data.name}</li> 
+                `)
+            })
+        })
+    },
+    CategoryBtn: (name) => {
+        console.log("click")
+        localStorage.setItem("CategoryName", name)
+        window.location.href=("/product")
+    },
+    LoadByCategoryProducts: (categoryName) => {
+        
+        /*var categoryName = "Smartphones"*/
+        ProductService.loadByCategoryProducts(categoryName,function (responce) {
+            console.log(responce);
+     
+
         })
     }
 

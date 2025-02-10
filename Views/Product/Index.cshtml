@@ -5,12 +5,24 @@
 <script src="~/js/controller/productcontroller.js"></script>
 <script src="~/js/servies/productservice.js"></script>
 <script>
+     // var categoryName = @ViewBag.ProductId
+     // console.log(categoryName);
         $(document).ready(function(){
-        ProductController.lstProduct();
-         ProductController.LoadCartProductCommon()
+             if (localStorage.getItem("CategoryName") != null && localStorage.getItem("CategoryName") != undefined) {
+             
+               console.log(localStorage.getItem("CategoryName"))
+                ProductController.LoadByCategoryProducts(localStorage.getItem("CategoryName"))
+            
 
-     
-    });
+
+
+         }
+       ProductController.lstProduct();
+         ProductController.LoadCartProductCommon()
+          ProductController.LoadCategory()
+           
+
+   });
 </script>
 
 <div >
@@ -21,5 +33,5 @@
     </div>
 </div>
 
-
+@Html.Partial("~/views/common/_partialleftbar.cshtml")
 

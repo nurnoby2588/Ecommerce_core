@@ -20,3 +20,10 @@ html {
 body {
   margin-bottom: 60px;
 }
+#categoryList {
+    color: black;
+    border: 1px solid black;
+    margin-bottom: 2px;
+    border-radius: 2px;
+    cursor: pointer
+}
