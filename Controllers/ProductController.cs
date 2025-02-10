@@ -12,5 +12,10 @@ namespace Ecommerce_core.Controllers
         {
             return View();
         }
+        public IActionResult SingleProduct(int id)
+        {
+            ViewBag.ProductId=id;
+            return View();
+        }
     }
 }

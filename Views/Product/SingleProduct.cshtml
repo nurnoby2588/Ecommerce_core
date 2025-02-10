@@ -1,0 +1,19 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<script src="~/js/controller/productcontroller.js"></script>
+<script src="~/js/servies/productservice.js"></script>
+ <script>
+ var productId = @ViewBag.ProductId
+    $(document).ready(function(){
+            ProductController.SingleProduct(productId);
+                ProductController.LoadCartProductCommon()
+    })
+      
+       
+</script> 
+<div id="dvSignleProductView" class="row"  style="width:80%; background-color:azure; margin:auto ; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+ 
+</div>

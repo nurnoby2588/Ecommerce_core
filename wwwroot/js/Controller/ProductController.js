@@ -10,11 +10,11 @@ var ProductController = {
 
                         productContent = productContent + `
                 
-             <div class="col">
+             <div class="col" >
              <div class="card h-80">
-             <img id="pdPic_${value.id}" src="${value.thumbnail}" class="card-img-top" alt="...">
+             <img onclick="window.location.href = ('/product/singleProduct/${ value.id }')" style="cursor:pointer"  id="pdPic_${value.id}" src="${value.thumbnail}" class="card-img-top" alt="...">
              <div class="card-body">
-                <h5  class="card-title">Name : <span id="pdName_${value.id}">${value.title}</span></h5>
+                <h5 onclick="window.location.href = ('/product/singleProduct/${ value.id }')" style="cursor:pointer"  class="card-title">Name : <span id="pdName_${value.id}">${value.title}</span></h5>
                 <h5  class=" card-title">Price : <s>${value.price}</s> <span id="pdPrice_${value.id}">${value.price}</span> </h5>
                 <h5  class="card-title">Quantity : <span id="pdQty_${value.id}">${value.stock}</span></h5>
                 <button type="button" id="btnAddToCard_${value.id}" class="btn btn-primary" onclick="ProductController.addToCart(this)">ADD TO CART</button>
@@ -121,19 +121,19 @@ var ProductController = {
                 $("#dbViewCartContent").append(`
                 <div id="dvCartWrapper_${value.id}" style="border:1px solid #f5da95" class="mt-1">
 
-                <div class="row p-2"  >
+                <div class="row p-2"  style="cursor:pointer" >
                    <div class="col col-sm-3">
-                   <img style="width:50px" src="${value.image}" />
+                   <img onclick="window.location.href = ('/product/singleProduct/${ value.id }')"  style="width:50px" src="${value.image}" />
                  </div>
 
-                  <div class="col col-sm-4">
-                    <span>${value.name}</span>
+                  <div class="col col-sm-4"  style="cursor:pointer">
+                    <span onclick="window.location.href = ('/product/singleProduct/${ value.id }')">${value.name}</span>
                     </div>
-                   <div class="col col-sm-3">
+                   <div class="col col-sm-3"  style="cursor:pointer">
                       <span>${value.price}</span>
                     </div>
-                    <div class="col col-sm-2">
-                      <span style="cursor:pointer" onclick="ProductController.deleteCartProduct(${value.id})">X</span>
+                    <div onclick="ProductController.deleteCartProduct(${value.id})" class="col col-sm-2">
+                      <span style="cursor:pointer ;">X</span>
                     </div>
 
                    </div>
@@ -162,15 +162,15 @@ var ProductController = {
                 $("#checkoutBox").append(`
                 <div id="dvCheckOutCartWrapper_${value.id}" style="border:1px solid #f5da95" class="mt-1">
 
-                <div class="row p-2"  >
+                <div class="row p-2"  onclick="window.location.href = ('/product/singleProduct/${ value.id }')" style="cursor:pointer">
                    <div class="col col-sm-3">
                    <img style="width:50px" src="${value.image}" />
                  </div>
 
-                  <div class="col col-sm-4">
+                  <div class="col col-sm-4" onclick="window.location.href = ('/product/singleProduct/${ value.id }')" style="cursor:pointer">
                     <span>${value.name}</span>
                     </div>
-                   <div class="col col-sm-3">
+                   <div class="col col-sm-3" onclick="window.location.href = ('/product/singleProduct/${ value.id }')" style="cursor:pointer">
                       <span>${value.price}</span>
                     </div>
                     <div class="col col-sm-2">
@@ -223,6 +223,60 @@ var ProductController = {
         if (lstCartProducts.length > 0) {
             localStorage.setItem("LstCartProducts", JSON.stringify(lstCartProducts))
         }
+    },
+    SingleProduct: (targetProductId) => {
+        console.log(targetProductId)
+        var sampleImage =''
+        ProductService.singleProduct(targetProductId, function (responce) {
+           var colCount=''
+            if (12 / parseInt(responce.images.length) >= 3) {
+                colCount = 2.5;
+            }
+            else {
+                colCount=3
+            }
+            console.log(colCount);
+            $.each(responce.images, function (index, value) {
+              
+
+                sampleImage = sampleImage + `
+                <div class="col col-${colCount}">
+                 <img style="width:80%" src="${value}" />
+              </div>
+                `})
+
+            $("#dvSignleProductView").append(`
+            <div class="col col-5 " style="">
+           <div >
+                <img id="pdPic_${responce.id}" style="width:100%" src="${responce.thumbnail}" />
+                </div>
+            <div class="row gap-1" >
+            ${
+                sampleImage
+              }
+              </div>
+      
+            </div>
+            
+              <div class="col col-7" style="display:flex;flex-direction:column;justify-content:center;padding-left:2%">
+             <p> <b> Title:</b>  <span id="pdName_${responce.id}">${responce.title}</span></p>
+             <p> <b>Category:</b> ${responce.category}</p>
+             <p> <b>Brand:</b> ${responce.brand}</p>
+             <p> <b>Price:</b> <span id="pdPrice_${responce.id}">${responce.price}</span> ${responce.price}</p>
+             <p> <b>Stock:</b> ${responce.stock}</p>
+             <p> <b>Weight:</b>${responce.weight}</p>
+             <p> <b>Warranty:</b> ${responce.warrantyInformation}</p>
+             <p> <b>Description:</b> ${responce.description}</p>
+                <div>
+                <button id="btnAddToCard_${responce.id}" onclick="ProductController.addToCart(this)" class="btn btn-primary">Add to cart</button>
+              </div>
+       
+                </div>
+
+            `)
+            
+            console.log(responce)
+        })
     }
 
 }
