@@ -63,25 +63,26 @@ var ProductController = {
         ProductController.arrangeAddCard();
         
     },
-    deleteCartProduct: (targetIndex) => {
-       
-        
-        var lstCartProductsNew = []
+       deleteCartProduct: (targetIndex) => {
+           var lstCartProductsNew = []
+
         $.each(lstCartProducts, function (index, value) {
             if (targetIndex != index) {
                 lstCartProductsNew.push(value);
             }
         })
-        console.log(lstCartProductsNew.length)
-        if (lstCartProductsNew.length == 0) {
 
-            $("#dvCheckout").html('')
-        }
-        lstCartProducts = lstCartProductsNew;
+        console.log(lstCartProductsNew.length)
        
-        ProductController.arrangeAddCard();
- 
-    }
+        lstCartProducts = lstCartProductsNew;
+           localStorage.setItem("LstCartProducts", JSON.stringify(lstCartProducts))
+           ProductController.arrangeAddCard();
+
+           if (lstCartProductsNew.length == 0) {
+               
+               $("#dvCheckout").html('')
+           }
+     }
     ,
     viewCart: () => {
        
@@ -148,6 +149,12 @@ var ProductController = {
         // Checkout details update
         // check checkout page a #checkoutBox ei id ase naki
         if ($('body').find('#checkoutBox').length > 0) {
+            if (lstCartProducts.length == 0) {
+                alert("Empty cart")
+                window.location.href = ('/Product');
+                $("#dvCheckout").html('')
+            }
+          
             $.each(lstCartProducts, function (index, value) {
                 $("#checkoutBox").append(`
                 <div id="dvCheckOutCartWrapper_${index}" style="border:1px solid #f5da95" class="mt-1">
