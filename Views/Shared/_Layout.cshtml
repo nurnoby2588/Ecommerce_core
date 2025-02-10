@@ -14,16 +14,22 @@
             integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
             crossorigin="anonymous">
     </script>
+    <script src="~/js/controller/productcontroller.js"></script>
+    <script src="~/js/servies/productservice.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/controller/productcontroller.js"></script>
     <script>
         $(document).ready(function(){
+          
             if( localStorage.getItem("UserName") != undefined &&  localStorage.getItem("UserName") != null)
             {
               var userName = localStorage.getItem("UserName");
               $('#userName').html(userName);
             }
             
+        })
+        $(document).ready(function (){
+              ProductController.LoadCartProductCommon()
         })
     </script>
 

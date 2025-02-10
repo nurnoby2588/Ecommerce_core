@@ -74,8 +74,9 @@ var ProductController = {
 
         console.log(lstCartProductsNew.length)
        
-        lstCartProducts = lstCartProductsNew;
-           localStorage.setItem("LstCartProducts", JSON.stringify(lstCartProducts))
+           lstCartProducts = lstCartProductsNew;
+           ProductController.UploadCartProduct()
+           //localStorage.setItem("LstCartProducts", JSON.stringify(lstCartProducts))
            ProductController.arrangeAddCard();
 
            if (lstCartProductsNew.length == 0) {
@@ -200,10 +201,11 @@ var ProductController = {
       
     },
     prepareCartForCheckoutUI: (url) => {
-        localStorage.setItem("LstCartProducts", JSON.stringify(lstCartProducts))
+        ProductController.UploadCartProduct()
+        //localStorage.setItem("LstCartProducts", JSON.stringify(lstCartProducts))
         window.location.href = url;
     },
-    LoadCartProductForCheckout: () => {
+    LoadCartProductCommon: () => {
         //ProductController.arrangeAddCard();
         if (localStorage.getItem("LstCartProducts") != null && localStorage.getItem("LstCartProducts") != undefined) {
             lstCartProducts = JSON.parse(localStorage.getItem("LstCartProducts"));
@@ -211,6 +213,11 @@ var ProductController = {
             ProductController.arrangeAddCard();
 
 
+        }
+    },
+    UploadCartProduct: () => {
+        if (lstCartProducts.length > 0) {
+            localStorage.setItem("LstCartProducts", JSON.stringify(lstCartProducts))
         }
     }
 
