@@ -12,17 +12,17 @@ var ProductController = {
                 
              <div class="col">
              <div class="card h-80">
-             <img id="pdPic_${value.id}" src="${value.picture}" class="card-img-top" alt="...">
+             <img id="pdPic_${value.id}" src="${value.thumbnail}" class="card-img-top" alt="...">
              <div class="card-body">
-                <h5  class="card-title">Name : <span id="pdName_${value.id}">${value.name}</span></h5>
+                <h5  class="card-title">Name : <span id="pdName_${value.id}">${value.title}</span></h5>
                 <h5  class=" card-title">Price : <s>${value.price}</s> <span id="pdPrice_${value.id}">${value.price}</span> </h5>
-                <h5  class="card-title">Quantity : <span id="pdQty_${value.id}">${value.quantity}</span></h5>
+                <h5  class="card-title">Quantity : <span id="pdQty_${value.id}">${value.stock}</span></h5>
                 <button type="button" id="btnAddToCard_${value.id}" class="btn btn-primary" onclick="ProductController.addToCart(this)">ADD TO CART</button>
                     </div>
                      </div>
                         </div>
              `;
-                console.log(value)      
+                   
                     })
             $('#dvProductList').html(productContent)
           
