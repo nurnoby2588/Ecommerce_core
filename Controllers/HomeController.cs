@@ -15,6 +15,7 @@ namespace Ecommerce_core.Controllers
 
         public IActionResult Index()
         {
+            List<Account> accounts = Account.listUser();
             return View();
         }
 
